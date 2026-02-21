@@ -20,6 +20,10 @@ import rapportsImg from "../assets/img/Rapports.png";
 import demoVideo from "../assets/Video/demo.mp4";
 import assistantImg from "../assets/img/Assistant IA.png";
 
+const WA_NUMBER = "237678591225";
+const waLink = (msg: string) =>
+  `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+
 /* ════════════════════════════════════════════════════════════
    ANIMATION WRAPPERS
    ════════════════════════════════════════════════════════════ */
@@ -246,11 +250,13 @@ const features = [
 const pricingPlans = [
   {
     name: "Essentiel",
-    price: "15 000",
+    price: "10 000",
+    oldPrice: "15 000",
     period: "/mois",
     desc: "Idéal pour les petits commerces qui démarrent.",
     popular: false,
-    cta: "Commencer",
+    promo: true,
+    cta: "Profiter de l'offre",
     features: [
       "1 point de vente",
       "Jusqu'à 500 produits",
@@ -409,7 +415,9 @@ function Navbar() {
           <div className="hidden md:flex items-center gap-3">
            
             <a
-              href="#"
+              href={waLink("Je souhaite avoir un essai")}
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-sm font-semibold px-5 py-2.5 rounded-xl bg-emerald-500 text-white hover:bg-emerald-400 transition-all duration-300 shadow-lg shadow-emerald-500/25 hover:shadow-emerald-400/30 hover:-translate-y-px"
             >
               Essai gratuit
@@ -503,7 +511,9 @@ function Navbar() {
                   Connexion
                 </a>
                 <a
-                  href="#"
+                  href={waLink("Je souhaite avoir un essai")}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="block text-center py-3 rounded-xl bg-emerald-500 text-white font-semibold shadow-lg shadow-emerald-500/25"
                 >
                   Essai gratuit
@@ -617,7 +627,9 @@ function Hero() {
               className="mt-10 flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start"
             >
               <a
-                href="#"
+                href={waLink("Je souhaite avoir un essai")}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group w-full sm:w-auto px-8 py-4 rounded-2xl bg-emerald-500 text-white font-semibold text-center hover:bg-emerald-400 transition-all duration-300 shadow-2xl shadow-emerald-500/25 hover:shadow-emerald-400/35 hover:-translate-y-0.5"
               >
                 Démarrer gratuitement
@@ -1020,7 +1032,9 @@ function FeatureModal({
           {/* CTA */}
           <div className="mt-8 pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center gap-3">
             <a
-              href="#"
+              href={waLink("Je souhaite avoir un essai")}
+              target="_blank"
+              rel="noopener noreferrer"
               className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-emerald-500 text-white font-semibold text-center hover:bg-emerald-400 transition-all duration-300 shadow-lg shadow-emerald-500/25 hover:shadow-emerald-400/30 hover:-translate-y-px text-sm"
             >
               Essayer gratuitement
@@ -1293,6 +1307,13 @@ function Pricing() {
                     </span>
                   </div>
                 )}
+                {"promo" in plan && plan.promo && (
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+                    <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-amber-500 text-white text-xs font-bold shadow-lg shadow-amber-500/30 uppercase tracking-wider animate-pulse">
+                      Promo
+                    </span>
+                  </div>
+                )}
 
                 <div className="mb-8">
                   <h3
@@ -1310,10 +1331,15 @@ function Pricing() {
                     {plan.desc}
                   </p>
 
-                  <div className="flex items-baseline gap-1">
+                  <div className="flex items-baseline gap-1 flex-wrap">
+                    {"oldPrice" in plan && plan.oldPrice && (
+                      <span className="font-display text-xl font-bold text-slate-400 line-through mr-1">
+                        {plan.oldPrice}
+                      </span>
+                    )}
                     <span
                       className={`font-display text-4xl lg:text-5xl font-bold tracking-tight ${
-                        plan.popular ? "text-white" : "text-slate-900"
+                        "promo" in plan && plan.promo ? "text-amber-600" : plan.popular ? "text-white" : "text-slate-900"
                       }`}
                     >
                       {plan.price}
@@ -1328,10 +1354,17 @@ function Pricing() {
                       </span>
                     )}
                   </div>
+                  {"promo" in plan && plan.promo && (
+                    <p className="mt-2 text-xs font-semibold text-amber-600 bg-amber-50 inline-block px-2.5 py-1 rounded-lg">
+                      Économisez 5 000 FCFA/mois
+                    </p>
+                  )}
                 </div>
 
                 <a
-                  href="#"
+                  href={waLink(`Bonjour, je suis intéressé par l'offre ${plan.name} (${plan.price}${plan.period}). Je souhaite avoir plus d'informations.`)}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={`block w-full py-3.5 rounded-xl text-center font-semibold text-sm transition-all duration-300 mb-8 ${
                     plan.popular
                       ? "bg-emerald-500 text-white hover:bg-emerald-400 shadow-lg shadow-emerald-500/25 hover:shadow-emerald-400/30 hover:-translate-y-px"
@@ -1665,7 +1698,9 @@ function CallToAction() {
         <Reveal delay={0.2}>
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
-              href="#"
+              href={waLink("Je souhaite avoir un essai")}
+              target="_blank"
+              rel="noopener noreferrer"
               className="group w-full sm:w-auto px-10 py-4 rounded-2xl bg-emerald-500 text-white font-semibold text-center hover:bg-emerald-400 transition-all duration-300 shadow-2xl shadow-emerald-500/25 hover:shadow-emerald-400/35 hover:-translate-y-0.5"
             >
               Commencer maintenant
@@ -1674,7 +1709,9 @@ function CallToAction() {
               </span>
             </a>
             <a
-              href="#"
+              href={waLink("Bonjour, je souhaite parler à un expert Kioské.")}
+              target="_blank"
+              rel="noopener noreferrer"
               className="w-full sm:w-auto px-10 py-4 rounded-2xl border border-slate-700 text-slate-300 font-medium text-center hover:border-slate-500 hover:text-white transition-all duration-300"
             >
               Parler à un expert

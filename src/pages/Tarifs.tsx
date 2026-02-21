@@ -1,5 +1,9 @@
 import PageLayout from "../components/PageLayout";
 
+const WA_NUMBER = "237678591225";
+const waLink = (msg: string) =>
+  `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+
 const tiers = [
   {
     name: "Starter",
@@ -139,7 +143,9 @@ export default function Tarifs() {
 
               {/* CTA */}
               <a
-                href="#"
+                href={waLink(`Bonjour, je suis intéressé par l'offre ${tier.name} (${tier.price}${tier.priceSuffix}). Je souhaite avoir plus d'informations.`)}
+                target="_blank"
+                rel="noopener noreferrer"
                 className={`block w-full text-center font-semibold px-6 py-3 rounded-xl transition-colors ${tier.ctaStyle}`}
               >
                 {tier.cta}
@@ -160,10 +166,12 @@ export default function Tarifs() {
             personnalisee ou consultez notre centre d'aide.
           </p>
           <a
-            href="#"
+            href={waLink("Bonjour, j'ai une question sur vos tarifs.")}
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-block border border-slate-300 text-slate-700 font-semibold px-8 py-3 rounded-xl hover:bg-slate-100 transition-colors"
           >
-            Voir la FAQ
+            Nous contacter
           </a>
         </div>
       </section>
